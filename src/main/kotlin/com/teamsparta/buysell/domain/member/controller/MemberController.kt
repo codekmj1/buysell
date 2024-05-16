@@ -103,14 +103,15 @@ class MemberController(
         val token = socialService.googleLogin(oAuth2User).accessToken
 
         // 쿠키 생성 및 설정
-        val cookie = Cookie("token", token)
-        cookie.maxAge = 3600 // 쿠키 만료 시간 (초 단위)
-        cookie.path = "/" // 모든 경로에서 쿠키 사용
-        cookie.domain = domain //도메인 경로 설정
-        httpServletResponse.addCookie(cookie)
+        //val cookie = Cookie("token", token)
+        //cookie.maxAge = 3600 // 쿠키 만료 시간 (초 단위)
+        //cookie.path = "/" // 모든 경로에서 쿠키 사용
+        //cookie.domain = domain //도메인 경로 설정
+        //httpServletResponse.addCookie(cookie)
 
         // 메인 페이지 URL을 응답으로 전달
         val mainUrl = frontUrl
+        httpServletResponse.addHeader(HttpHeaders.AUTHORIZATION, token)
         httpServletResponse.sendRedirect(mainUrl)
     }
 
